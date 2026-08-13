@@ -14,6 +14,7 @@ Source0:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/fontawesome7.r%{
 Source1:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/fontawesome7.doc.r%{tl_revision}.tar.xz
 BuildArch:	noarch
 BuildSystem:	texlive
+Requires:	texlive-tlpkg
 Provides:	texlive(%{tl_name}) = %{version}
 
 %description
@@ -32,3 +33,10 @@ included fonts are provided by Fort Awesome under the SIL OFL 1.1
 license. This package is not an official Fort Awesome project. For bug
 reports, please open an issue at https://github.com/braniii/fontawesome.
 
+
+%install -a
+mkdir -p %{buildroot}%{_texmf_updmap_d}
+cat > %{buildroot}%{_texmf_updmap_d}/%{tl_name} <<'TL_DROPIN_EOF'
+# from fontawesome7:
+Map fontawesome7.map
+TL_DROPIN_EOF
